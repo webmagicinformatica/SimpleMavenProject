@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+  - source: /webapp.war
+    destination: /opt/apache-tomcat-8.5.35/webapps
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies
+      timeout: 300
+      runas: root
+    - location: scripts/start_server
+      timeout: 300
+      runas: root
+
