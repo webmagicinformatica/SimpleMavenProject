@@ -1,0 +1,9 @@
+# copywarfile.yml
+---
+- hosts: all 
+  become: true
+  tasks: 
+    - name: copy jar/war onto tomcat servers
+        copy:
+          src: /ec2-user/ansadmin/playbooks/webapp/target/webapp.war
+          dest: /opt/apache-tomcat-8.5.32/webapps
