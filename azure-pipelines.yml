@@ -21,7 +21,7 @@ steps:
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'clean install package'
+    goals: 'package'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
@@ -32,6 +32,13 @@ steps:
 
 - task: PublishBuildArtifacts@1
   inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp/target/'
+    PathtoPublish: '/home/vsts/work/1/s/webapp/target/'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+
+- task: Docker@2
+  inputs:
+    containerRegistry: 'DockerHub'
+    repository: 'newjavaproject'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
