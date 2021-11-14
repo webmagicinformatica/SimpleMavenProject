@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build Java Application') {
             steps {
-                sh 'sudo docker run --rm --name Maven -v /var/jenkins_home/workspace/JavaContainerBuild:/usr/src/mymaven -w /usr/src/mymaven maven:3.3-jdk-8 mvn clean install package'
+                sh 'sudo mvn clean install package'
             }
         }
         stage('Docker Image Build For My Java Application') {
