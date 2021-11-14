@@ -17,9 +17,21 @@ pipeline {
                 sh 'docker tag java-app dab8106/java-app'
             }
         }
+        
+        stage('DockerLogin') {
+            withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'pass', usernameVariable: 'user')]) {
+                sh 'docker login --username $user --password-stdin $pass'
+            }
+        }
+        
         stage('Pushing the image') {
             steps {
                 sh 'docker push dab8106/java-app'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'ansible-playbook create_docker_container.yml'
             }
         }
     }
