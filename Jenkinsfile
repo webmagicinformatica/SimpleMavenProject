@@ -16,7 +16,7 @@ pipeline {
         stage('Unit Test') {
             steps {
                 // Run unit tests (e.g., using Maven or Gradle)
-                sh 'mvn clean test'
+                sh 'mvn test'
             }
         }
 
